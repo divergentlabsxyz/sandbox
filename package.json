@@ -1,0 +1,126 @@
+{
+  "name": "@divergentlabs/sandbox",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Divergent sandboxes and their desktop from TypeScript: a client, computer-use adapters for Claude, OpenAI and the AI SDK, and an embeddable live screen.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divergentlabsxyz/sandbox.git"
+  },
+  "homepage": "https://docs.divergentlabs.xyz/sandboxes/sdk",
+  "bugs": "https://github.com/divergentlabsxyz/sandbox/issues",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./anthropic": {
+      "import": {
+        "types": "./dist/anthropic.d.ts",
+        "default": "./dist/anthropic.js"
+      },
+      "require": {
+        "types": "./dist/anthropic.d.cts",
+        "default": "./dist/anthropic.cjs"
+      }
+    },
+    "./openai": {
+      "import": {
+        "types": "./dist/openai.d.ts",
+        "default": "./dist/openai.js"
+      },
+      "require": {
+        "types": "./dist/openai.d.cts",
+        "default": "./dist/openai.cjs"
+      }
+    },
+    "./ai": {
+      "import": {
+        "types": "./dist/ai.d.ts",
+        "default": "./dist/ai.js"
+      },
+      "require": {
+        "types": "./dist/ai.d.cts",
+        "default": "./dist/ai.cjs"
+      }
+    },
+    "./screen": {
+      "import": {
+        "types": "./dist/screen.d.ts",
+        "default": "./dist/screen.js"
+      },
+      "require": {
+        "types": "./dist/screen.d.cts",
+        "default": "./dist/screen.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "test": "esbuild src/anthropic.test.ts src/openai.test.ts src/client.test.ts src/ai.test.ts --bundle --platform=node --target=node22 --format=esm --external:ai --outdir=.test-dist && (node --test .test-dist/*.js; code=$?; rm -rf .test-dist; exit $code)"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/sdk": ">=0.100.0",
+    "@novnc/novnc": "^1.7.0",
+    "ai": ">=7.0.0",
+    "openai": ">=6.0.0",
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/sdk": {
+      "optional": true
+    },
+    "@novnc/novnc": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    },
+    "openai": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@novnc/novnc": "1.7.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.2.0",
+    "ai": "^7.0.130",
+    "esbuild": "^0.28.2",
+    "openai": "^7.30.0",
+    "react": "^19.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.2",
+    "zod": "^4.6.5"
+  }
+}

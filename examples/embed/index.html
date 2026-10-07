@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sandbox screen</title>
+    <style>
+      :root {
+        --paper: #ffffff;
+        --ink: #16171a;
+        --muted: #6b6d73;
+        --line: #e4e4e7;
+        --accent: #00875a;
+        --term: #0e0f11;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #121315;
+          --ink: #ececee;
+          --muted: #9a9ca3;
+          --line: #2a2b2f;
+          --accent: #2fbf86;
+          --term: #000000;
+        }
+      }
+      body {
+        margin: 0;
+        padding: 24px 16px;
+        background: var(--paper);
+        color: var(--ink);
+        font: 14px/1.5 system-ui, sans-serif;
+      }
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      #state {
+        color: var(--muted);
+      }
+      #state.live {
+        color: var(--accent);
+      }
+      button {
+        font: inherit;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 4px 10px;
+        cursor: pointer;
+      }
+      button:hover {
+        border-color: var(--ink);
+      }
+      button[aria-pressed='true'] {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
+      }
+      #screen {
+        aspect-ratio: 16 / 10;
+        width: 100%;
+        background: var(--term);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      code {
+        font-family: ui-monospace, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <span id="state">Connecting…</span>
+        <button id="control" type="button" aria-pressed="false">Take control</button>
+      </header>
+      <div id="screen"></div>
+      <p id="usage" hidden>
+        Open this page as <code>#token=dvs_…&amp;sandbox=&lt;id&gt;</code>, with a token minted for this page's origin.
+      </p>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "examples/**/*.ts",
+    "tsup.config.ts"
+  ],
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node"
+    ],
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "paths": {
+      "@divergentlabs/sandbox": [
+        "./src/index.ts"
+      ],
+      "@divergentlabs/sandbox/react": [
+        "./src/react.tsx"
+      ],
+      "@divergentlabs/sandbox/*": [
+        "./src/*.ts"
+      ]
+    }
+  }
+}

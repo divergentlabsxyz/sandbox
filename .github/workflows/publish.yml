@@ -1,0 +1,39 @@
+# Publishes the version a tag names to npm, with provenance. The tag and
+# package.json must agree; a version with a hyphen goes out as `next`, so
+# `npm install @divergentlabs/sandbox` never picks a pre-release.
+name: Publish
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      # Trusted publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@latest
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+      - name: Publish
+        env:
+          # Only for a package with no trusted publisher yet; with one, npm
+          # signs in through the workflow's OIDC token instead.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          [ "$(node -p 'require("./package.json").version')" = "$version" ] \
+            || { echo "$GITHUB_REF_NAME does not match package.json's version"; exit 1; }
+          case $version in *-*) dist_tag=next ;; *) dist_tag=latest ;; esac
+          npm publish --provenance --access public --tag "$dist_tag"
